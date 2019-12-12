@@ -1,0 +1,28 @@
+<!-- Body content. -->
+<h1>Customers</h1>
+<table class='table'>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let c of customers) { %>
+        <tr>
+            <td><%= c.id %></td>
+            <td><%= c.name %></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<%- contentFor('script') %>
+<script>
+
+</script>
+
+<%- contentFor('style') %>
+<style>
+
+</style>
