@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Pet Schedule</title>
+	<link href="common/samples.css" rel="stylesheet" />	
+	<link href="themes/first-theme.css" rel="stylesheet" />	
+</head>
+<body>
+	<div class="topnav">
+	<a class="active" href="#home">Home</a>
+	<a href="#news">News</a>
+	<a href="#contact">Contact</a>
+	<a href="#about">About</a>
+	</div>
+	<div id="content" style="top: 60px; bottom: 24px;">
+		<div style="position: absolute; width: 100%; height: 100%;">
+			<div id="calendar" style="height: 100%; width: 100%;"></div>
+			<button id="ListView">List View</button>
+		</div>
+		<button id="saveButton">Save Schedule</button>
+	</div>
+	<button id="saveButton">Save Schedule</button>
+	<!-- Use this to save the schedule to cloud datastore -->
+	<button id="loadButton">Load Schedule</button>
+	
+	<script src="MindFusion.Scheduling.js" type="text/javascript"></script>
+	<script src="PetSchedule.js" type="text/javascript"></script>
+</body>
+</html>
