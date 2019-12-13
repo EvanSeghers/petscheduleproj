@@ -33,7 +33,7 @@ function validateCreateItem (sender, args)
 var button = document.getElementById( 'saveButton' );
 button.addEventListener( 'click', function() {
     
-    var data = calendar.schedule.toJson();
+    var data = calendar.schedule.toJson(); //This part will switch to a backend send
 
     var blob = new Blob( [ data ], {
         type: 'application/json'
