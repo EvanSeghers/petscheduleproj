@@ -63,8 +63,9 @@ app.get("/login",(req, res) => {
 
 
   app.get("/test",(req, res) => {
-    res.render("login.ejs");
+    res.render("Calendar.ejs");
   });
+
 
 
 // Start the server.
