@@ -20,14 +20,19 @@ app.use(expressLayouts);
 app.set('trust proxy', true);
 
 //Connect to DB
-
-/*var con = mysql.createConnection({dbconfig});
+var dbconfig = {
+    user: 'root',
+    database: 'PetScheduler',
+    password: 'cloudfinal',
+    //host : '127.0.0.1'
+    socketPath: 'cloudcomputingfinal-261901:us-central1:cloudcomputingfinal'
+}
+var con = mysql.createConnection({dbconfig});
 
 con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    isconnected = true;
-})*/
+})
 
 
 //Initialize Middleware
