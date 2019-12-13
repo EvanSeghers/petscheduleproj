@@ -63,9 +63,23 @@ app.get("/login",(req, res) => {
 
 
   app.get("/test",(req, res) => {
-    res.render("login.ejs");
+    res.render("PetSchedule.ejs");
   });
-
+  app.get("/Customers",(req, res) => {
+    res.render("ListView.ejs");
+  });
+  app.get("/Pets",(req, res) => {
+    res.render("ListView.ejs");
+  });
+  app.get("/Customers",(req, res) => {
+    res.render("ListView.ejs");
+  });
+  app.get("/Appointments",(req, res) => {
+    res.render("ListView.ejs");
+  });
+  app.get("/Home",(req, res) => {
+    res.render("PetSchedule.ejs");
+  });
 
 // Start the server.
 const server = app.listen(port, () => {
