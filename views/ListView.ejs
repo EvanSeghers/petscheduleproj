@@ -27,27 +27,28 @@ tr:nth-child(even) {
 <h2>HTML Table</h2>
 
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Pet</th>
-    <th>Service</th>
-  </tr>
-  <tr>
-    <td>Evan Test Object</td>
-    <td>Dog</td>
-    <td>Shave</td>
-  </tr>
-  <tr>
-    <td>Jeff</td>
-    <td>Bulldog</td>
-    <td>Walk</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pet</th>
+      <th>Service</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let row in list) { %>
+      <tr>
+        <td><%= row.name %></td>
+        <td><%= row.pet %></td>
+        <td><%= row.service %></td>
+      </tr>
+    <% } %>
+  </tbody>
   
 </table>
 
 </body>
 
-<button id="schedule">Add appointment on INCLUDEDATEHERE</button>
+<button id="schedule">Add appointment on <%= dateStr %></button>
 
 <style>
 /* Create two equal columns that floats next to each other */
