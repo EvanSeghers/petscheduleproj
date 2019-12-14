@@ -58,28 +58,36 @@ app.get('/', (req, res) => {
 });
 
 app.get("/login",(req, res) => {
-    res.render("login.ejs");
-  });
+  res.render("login.ejs");
+});
 
 
-  app.get("/test",(req, res) => {
-    res.render("PetSchedule.ejs");
+app.get("/test",(req, res) => {
+  res.render("PetSchedule.ejs");
+});
+app.get("/Customers",(req, res) => {
+  res.render("ListView.ejs");
+});
+app.get("/Pets",(req, res) => {
+  res.render("ListView.ejs");
+});
+app.get("/Customers",(req, res) => {
+  res.render("ListView.ejs");
+});
+app.get("/Appointments",(req, res) => {
+  const date = req.query.date.toString();
+
+  // TODO: Query the database.
+  const list = [];
+
+  res.render("ListView.ejs", { 
+    list,
+    dateStr: `${date.substr(4, 2)}-${date.substr(6)}-${date.substr(0, 4)}`
   });
-  app.get("/Customers",(req, res) => {
-    res.render("ListView.ejs");
-  });
-  app.get("/Pets",(req, res) => {
-    res.render("ListView.ejs");
-  });
-  app.get("/Customers",(req, res) => {
-    res.render("ListView.ejs");
-  });
-  app.get("/Appointments",(req, res) => {
-    res.render("ListView.ejs");
-  });
-  app.get("/Home",(req, res) => {
-    res.render("PetSchedule.ejs");
-  });
+});
+app.get("/Home",(req, res) => {
+  res.render("PetSchedule.ejs");
+});
 
 // Start the server.
 const server = app.listen(port, () => {
