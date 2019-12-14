@@ -10,7 +10,7 @@ const session = require("express-session");
 require("./passport-config")(passport);
 const methodOverride = require("method-override");
 const mysql = require('mysql')
-const app = express();
+const app = express(); 
 
 // Express configuration.
 app.disable('etag');
@@ -19,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('trust proxy', true);
 
+<<<<<<< Updated upstream
 //Connect to DB
 var dbconfig = {
     user: 'root',
@@ -37,6 +38,9 @@ con.connect(function(err) {
 
 //Initialize Middleware
 //Allows us to access form variables inside post methods
+=======
+
+>>>>>>> Stashed changes
 app.use(express.urlencoded({ extended: false }));
 app.use( express.static( "public" ) );
 
