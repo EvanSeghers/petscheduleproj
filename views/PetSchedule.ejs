@@ -1,160 +1,123 @@
-<html>
-	<head>
-		<title>Calendar	Test</title>
-		<style>
-		
-			body { width: 320; height: 480; margin: 20, auto; }
-			#calWrapper { width: 100%; margin: 0 5; border: 1px solid #ccc; }
-			.dayCell { width: 60px; height: 120px; font-size: 11px; vertical-align: top; text-align: right; background-color: aliceblue;}
-			.dayHeader { 
-				width: 40px;
-				height: 20px; 
-				background-color: #ddd; 
-			}
-			.today { border: 2px solid blue;}
-			/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
-  overflow: hidden;
-}
+<h3>Month view for <span id="dateHolder"></span></h3>
+	
+<table id="calWrapper">
+</table>
 
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+<p align="left">
+<input id="clickMe" type="button" value="Go to previous month" />
+</p>
+<p align="right">
+	<input id = clickMe2 type="button" value="Go to next month" />
+</p>
 
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
 
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-	
-		</style>
 
-	</head>
-	
-	<body>
-	<h3>Month view for <span id="dateHolder" /></h3>
-	
-	<table id="calWrapper">
-	</table>
-	
-	<p align="left">
-	<input id="clickMe" type="button" value="Go to previous month" />
-	</p>
-	<p align="right">
-		<input id = clickMe2 type="button" value="Go to next month" />
-	</p>
-	
-	<script type="text/javascript"></script>
-	<script>
+<%- contentFor('script') %>
+<script>
     window.onload = function(){ 
      
-		var nextmonthbutton = document.getElementById("clickMe2");//button to go to next month
-		var previousmonthbutton = document.getElementById("clickMe");
-		var today = new Date();
-		var newDate = new Date();
+	var nextmonthbutton = document.getElementById("clickMe2");//button to go to next month
+	var previousmonthbutton = document.getElementById("clickMe");
+	var today = new Date();
+	var newDate = new Date();
+	
+	
+
+
+	
+
+
+
+	console.log(newDate); //Should log next months date in console, now I later just need to refractor this so it reloads
+						// the calendar function below on each click. For now im gonna try to get the list going.
+						//most likely have to be able to push "newDate"into our below function.
+	(function (){
+	
+		var month,day,year,firstDay;
+		month = today.getMonth();
+		day = today.getDate();
+		year = today.getFullYear();
 		
+		firstDay = new Date(year,month,1);
 		
-
-
+		var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+		var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 		
-
-
-
-		console.log(newDate); //Should log next months date in console, now I later just need to refractor this so it reloads
-							// the calendar function below on each click. For now im gonna try to get the list going.
-							//most likely have to be able to push "newDate"into our below function.
-		(function (){
+		function displayDate() {
+			var holder = document.getElementById("dateHolder");
+			holder.innerText = months[month] + ' ' + year;
+		}
 		
-			var month,day,year,firstDay;
-			month = today.getMonth();
-			day = today.getDate();
-			year = today.getFullYear();
-			
-			firstDay = new Date(year,month,1);
-			
-			var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-			var days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-			
-			function displayDate() {
-				var holder = document.getElementById("dateHolder");
-				holder.innerText = months[month] + ' ' + year;
+		function createDayHeaders() {
+			var wrapper = document.getElementById("calWrapper");
+			var row = document.createElement("tr");
+			for(var i = 0; i<days.length; i++) {
+				var el = document.createElement("th");
+				el.setAttribute("class","dayHeader");
+				el.innerText = days[i];
+				row.appendChild(el);
 			}
+			wrapper.appendChild(row);
+		}
+		
+		function createDayCells() {
+			var dayOne = firstDay.getDay();
+			var iDay = 0;
 			
-			function createDayHeaders() {
-				var wrapper = document.getElementById("calWrapper");
+			var wrapper = document.getElementById("calWrapper");
+			var lastDay = new Date(year,month+1,0).getDate();
+			
+			while(iDay < lastDay) {
 				var row = document.createElement("tr");
 				for(var i = 0; i<days.length; i++) {
-					var el = document.createElement("th");
-					el.setAttribute("class","dayHeader");
-					el.innerText = days[i];
+					var el = document.createElement("td");
+					if(dayOne === i || iDay > 0) {
+						if(day === iDay)
+							el.setAttribute("class", "dayCell today");
+						else
+							el.setAttribute("class", "dayCell");
+							
+						if(iDay < lastDay)
+							iDay++;
+						else
+							break;
+						el.innerText = iDay;
+					}
 					row.appendChild(el);
 				}
 				wrapper.appendChild(row);
 			}
-			
-			function createDayCells() {
-				var dayOne = firstDay.getDay();
-				var iDay = 0;
-				
-				var wrapper = document.getElementById("calWrapper");
-				var lastDay = new Date(year,month+1,0).getDate();
-				
-				while(iDay < lastDay) {
-					var row = document.createElement("tr");
-					for(var i = 0; i<days.length; i++) {
-						var el = document.createElement("td");
-						if(dayOne === i || iDay > 0) {
-							if(day === iDay)
-								el.setAttribute("class", "dayCell today");
-							else
-								el.setAttribute("class", "dayCell");
-								
-							if(iDay < lastDay)
-								iDay++;
-							else
-								break;
-							el.innerText = iDay;
-						}
-						row.appendChild(el);
-					}
-					wrapper.appendChild(row);
-				}
-			}
-			
-			displayDate(today);
-			createDayHeaders();
-			createDayCells();
+		}
+		
+		displayDate(today);
+		createDayHeaders();
+		createDayCells();
 
-			var daybuttons = document.getElementsByClassName("dayCell");
+		var daybuttons = document.getElementsByClassName("dayCell");
 
-			var todaybutton = document.getElementsByClassName("dayCell today");
+		var todaybutton = document.getElementsByClassName("dayCell today");
 
-			console.log(todaybutton);
+		console.log(todaybutton);
 
-			console.log(daybuttons);
+		console.log(daybuttons);
 
-			Array.from(daybuttons).forEach(b => {
- 			 b.addEventListener("click", function() {
+		Array.from(daybuttons).forEach(b => {
+			b.addEventListener("click", function() {
 				console.log("clicked on "+ months[month] +" " + this.textContent);
-			
- 			 });
-			});
+				console.log(`${month} ${this.textContent}`);
 
-			nextmonthbutton.addEventListener("click", function()
-			 {
+				// Pad month and date with an extra zero if needed.
+				let dateObj = new Date(2019, month, this.textContent);
+				let m = (month + 1).toString();
+				if(m.length < 2) m = '0' + m;
+				let d = this.textContent.toString();
+				if(d.length < 2) d = '0' + d;
+
+				location.href = (`/Appointments?date=2019${m}${d}`);
+			});
+		});
+
+		nextmonthbutton.addEventListener("click", function() {
 			alert("Going to next month!");
 			console.log(month);
 			var newDate = new Date(today.setMonth(today.getMonth()+1));
@@ -171,8 +134,8 @@
 			console.log(newDate);
 			var tempdate = newDate;
 		});
-		previousmonthbutton.addEventListener("click", function()
-			 {
+
+		previousmonthbutton.addEventListener("click", function() {
 			alert("Going to previous month!");
 			console.log(month);
 			var newDate = new Date(today.setMonth(today.getMonth()-1));
@@ -192,14 +155,57 @@
 
 
 
-		})(); 
-		
-		
-	};
+	})(); 
 	
-
-	</script>
-
 	
-	</body>
-</html>
+};
+
+
+</script>
+
+<%- contentFor('style') %>
+<style>
+	body { width: 320; height: 480; margin: 20, auto; }
+	#calWrapper { width: 100%; margin: 0 5; border: 1px solid #ccc; }
+	.dayCell {
+		width: 60px;
+		height: 120px;
+		font-size: 11px;
+		vertical-align: top;
+		text-align: right;
+		background-color: aliceblue;
+	}
+	.dayHeader { 
+		width: 40px;
+		height: 20px; 
+		background-color: #ddd; 
+	}
+	.today { border: 2px solid blue;}
+	/* Add a black background color to the top navigation */
+	.topnav {
+		background-color: #333;
+		overflow: hidden;
+	}
+
+	/* Style the links inside the navigation bar */
+	.topnav a {
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+		font-size: 17px;
+	}
+
+	/* Change the color of links on hover */
+	.topnav a:hover {
+		background-color: #ddd;
+		color: black;
+	}
+
+	/* Add a color to the active/current link */
+	.topnav a.active {
+		background-color: #4CAF50;
+		color: white;
+	}
+</style>
