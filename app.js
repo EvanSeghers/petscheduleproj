@@ -51,6 +51,18 @@ app.use(passport.session());
 //Using delete is safer than using POST
 app.use(methodOverride("_method"));
 
+app.use((req, res, next) => {
+  if(req.session.user) {
+    next();
+  } else {
+    if (req.path == '/login') {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  } 
+})
+
 
 // Index route.
 app.get('/', (req, res) => {
@@ -60,6 +72,23 @@ app.get('/', (req, res) => {
 app.get("/login",(req, res) => {
   res.render("login.ejs");
 });
+
+app.post('/login', (req, res) => {
+  console.log(req.body);
+  if(req.body.userid == "password1" && req.body.pswrd == "password1") {
+    console.log('login success');
+    req.session.user = req.body.userid;
+    res.redirect('/test');
+  } else {
+    console.log('login failure');
+    res.redirect('/login');
+  }
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+})
 
 
 app.get("/test",(req, res) => {
@@ -75,14 +104,16 @@ app.get("/Customers",(req, res) => {
   res.render("ListView.ejs");
 });
 app.get("/Appointments",(req, res) => {
-  const date = req.query.date.toString();
+  let list = [];
+  let date = null;
 
-  // TODO: Query the database.
-  const list = [];
+  if(( date = req.query.date )) {
+
+  }
 
   res.render("ListView.ejs", { 
     list,
-    dateStr: `${date.substr(4, 2)}-${date.substr(6)}-${date.substr(0, 4)}`
+    dateStr: date ? `${date.substr(4, 2)}-${date.substr(6)}-${date.substr(0, 4)}` : null
   });
 });
 app.get("/Home",(req, res) => {
